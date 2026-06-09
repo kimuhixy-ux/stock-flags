@@ -1,0 +1,140 @@
+{
+  "generated_at": "2026-06-09 19:02",
+  "status": "暫定",
+  "short": 25,
+  "long": 75,
+  "results": [
+    {
+      "flag": "中立",
+      "date": "2026-06-09",
+      "close": 6070.0,
+      "sma_short": 6126.8,
+      "sma_long": 5967.3,
+      "macd_above": false,
+      "cross": "none",
+      "code": "2914.T",
+      "name": "日本たばこ産業（JT）"
+    },
+    {
+      "flag": "中立",
+      "date": "2026-06-09",
+      "close": 4370.0,
+      "sma_short": 4223.1,
+      "sma_long": 4377.9,
+      "macd_above": true,
+      "cross": "none",
+      "code": "7751.T",
+      "name": "キヤノン"
+    },
+    {
+      "flag": "中立",
+      "date": "2026-06-09",
+      "close": 2710.5,
+      "sma_short": 2860.1,
+      "sma_long": 2914.1,
+      "macd_above": false,
+      "cross": "none",
+      "code": "2593.T",
+      "name": "伊藤園"
+    },
+    {
+      "flag": "中立",
+      "date": "2026-06-09",
+      "close": 7048.0,
+      "sma_short": 6685.6,
+      "sma_long": 4988.3,
+      "macd_above": false,
+      "cross": "none",
+      "code": "9984.T",
+      "name": "ソフトバンクグループ"
+    },
+    {
+      "flag": "中立",
+      "date": "2026-06-09",
+      "close": 7738.0,
+      "sma_short": 7293.6,
+      "sma_long": 8228.6,
+      "macd_above": true,
+      "cross": "none",
+      "code": "7974.T",
+      "name": "任天堂"
+    },
+    {
+      "flag": "中立",
+      "date": "2026-06-09",
+      "close": 7121.0,
+      "sma_short": 7747.3,
+      "sma_long": 6694.4,
+      "macd_above": false,
+      "cross": "none",
+      "code": "6954.T",
+      "name": "ファナック"
+    },
+    {
+      "flag": "中立",
+      "date": "2026-06-09",
+      "close": 6395.0,
+      "sma_short": 6759.5,
+      "sma_long": 5481.7,
+      "macd_above": false,
+      "cross": "none",
+      "code": "6506.T",
+      "name": "安川電機"
+    },
+    {
+      "flag": "中立",
+      "date": "2026-06-09",
+      "close": 12040.0,
+      "sma_short": 11925.6,
+      "sma_long": 10525.5,
+      "macd_above": false,
+      "cross": "none",
+      "code": "5802.T",
+      "name": "住友電工"
+    },
+    {
+      "flag": "中立",
+      "date": "2026-06-09",
+      "close": 4499.0,
+      "sma_short": 5435.1,
+      "sma_long": 4977.6,
+      "macd_above": false,
+      "cross": "none",
+      "code": "5803.T",
+      "name": "フジクラ"
+    },
+    {
+      "flag": "中立",
+      "date": "2026-06-09",
+      "close": 11185.0,
+      "sma_short": 9412.0,
+      "sma_long": 7692.4,
+      "macd_above": true,
+      "cross": "none",
+      "code": "6098.T",
+      "name": "リクルートHD"
+    },
+    {
+      "flag": "中立",
+      "date": "2026-06-09",
+      "close": 6836.0,
+      "sma_short": 7300.0,
+      "sma_long": 6663.4,
+      "macd_above": false,
+      "cross": "none",
+      "code": "4063.T",
+      "name": "信越化学工業"
+    },
+    {
+      "flag": "中立",
+      "date": "2026-06-09",
+      "close": 9692.0,
+      "sma_short": 7630.2,
+      "sma_long": 5204.9,
+      "macd_above": true,
+      "cross": "none",
+      "code": "6981.T",
+      "name": "村田製作所"
+    }
+  ]
+}

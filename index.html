@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>売買フラグ</title>
+
+<link rel="manifest" href="manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="売買フラグ">
+<link rel="apple-touch-icon" href="icon-180.png">
+<meta name="theme-color" content="#161922">
+
+<style>
+  :root{
+    --ink:#161922; --panel:#1f2533; --panel-edge:#2b3340;
+    --mist:#e8e6e0; --muted:#838ca0;
+    --buy:#6bbf94; --sell:#cf7d6a; --neutral:#6b7280; --warn:#b8893f;
+    --prov:#c79a4b;   /* 暫定バッジ */
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+  body{
+    background:var(--ink); color:var(--mist);
+    font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN",-apple-system,sans-serif;
+    min-height:100vh;
+    padding:env(safe-area-inset-top) 16px calc(env(safe-area-inset-bottom) + 88px);
+    -webkit-font-smoothing:antialiased;
+  }
+  .mono{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums;}
+
+  header{padding:28px 4px 18px;}
+  .eyebrow{font-size:11px;letter-spacing:.22em;color:var(--muted);font-weight:600;}
+  h1{font-size:27px;font-weight:700;letter-spacing:.04em;margin-top:6px;}
+  .status{margin-top:10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:12.5px;color:var(--muted);}
+  .badge{
+    display:inline-flex;align-items:center;gap:5px;
+    padding:3px 9px;border-radius:999px;font-size:11px;font-weight:700;letter-spacing:.04em;
+  }
+  .badge.prov{background:rgba(199,154,75,.16);color:var(--prov);}
+  .badge.fixed{background:rgba(107,191,148,.16);color:var(--buy);}
+  .dot{width:6px;height:6px;border-radius:50%;background:currentColor;}
+
+  .list{display:flex;flex-direction:column;gap:10px;}
+  .card{position:relative;background:var(--panel);border:1px solid var(--panel-edge);
+    border-radius:14px;padding:15px 16px 15px 20px;overflow:hidden;}
+  .card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--neutral);}
+  .card.buy::before{background:var(--buy);}
+  .card.sell::before{background:var(--sell);}
+  .card.warn::before{background:var(--warn);}
+
+  .row1{display:flex;align-items:baseline;justify-content:space-between;gap:12px;}
+  .name{font-size:17px;font-weight:600;}
+  .code{font-size:11px;color:var(--muted);margin-top:3px;}
+  .flag{display:flex;align-items:center;gap:6px;font-size:17px;font-weight:700;white-space:nowrap;}
+  .flag .arrow{font-size:19px;line-height:1;}
+  .buy .flag{color:var(--buy);}
+  .sell .flag{color:var(--sell);}
+  .neutral .flag{color:var(--mist);}
+  .warn .flag{color:var(--warn);font-size:14px;}
+
+  .data{margin-top:12px;padding-top:11px;border-top:1px solid var(--panel-edge);
+    display:flex;flex-wrap:wrap;gap:4px 18px;font-size:12.5px;color:var(--muted);}
+  .data b{color:var(--mist);font-weight:600;}
+
+  .state{min-height:60vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;color:var(--muted);text-align:center;}
+  .spinner{width:26px;height:26px;border:2px solid var(--panel-edge);border-top-color:var(--mist);border-radius:50%;animation:spin .8s linear infinite;}
+  @keyframes spin{to{transform:rotate(360deg);}}
+  @media (prefers-reduced-motion:reduce){.spinner{animation:none;}}
+
+  .bar{position:fixed;left:0;right:0;bottom:0;
+    padding:12px 16px calc(env(safe-area-inset-bottom) + 12px);
+    background:linear-gradient(to top,var(--ink) 70%,transparent);display:flex;justify-content:center;}
+  button{font-family:inherit;font-size:15px;font-weight:600;color:var(--ink);
+    background:var(--mist);border:none;border-radius:11px;padding:13px 0;width:100%;max-width:460px;cursor:pointer;}
+  button:active{transform:translateY(1px);}
+  button:disabled{opacity:.5;}
+
+  .note{margin-top:18px;padding:0 4px;font-size:11px;line-height:1.6;color:var(--muted);}
+</style>
+</head>
+<body>
+<header>
+  <div class="eyebrow">DAILY SIGNAL</div>
+  <h1>売買フラグ</h1>
+  <div class="status" id="status">読み込み中…</div>
+</header>
+
+<div id="content">
+  <div class="state"><div class="spinner"></div><div>読み込んでいます</div></div>
+</div>
+
+<div class="bar"><button id="refresh" onclick="load()">更新</button></div>
+
+<script>
+const ARROW = { "買い":"↑", "売り":"↓", "中立":"→" };
+const CLASS = { "買い":"buy", "売り":"sell", "中立":"neutral" };
+const CROSS = { golden:"ゴールデンクロス", dead:"デッドクロス", none:"クロスなし" };
+
+async function load(){
+  const btn = document.getElementById("refresh");
+  const content = document.getElementById("content");
+  const status = document.getElementById("status");
+  btn.disabled = true;
+  content.innerHTML = '<div class="state"><div class="spinner"></div><div>読み込んでいます</div></div>';
+  status.textContent = "読み込み中…";
+  try{
+    const res = await fetch("flags.json?t=" + Date.now(), {cache:"no-store"});
+    if(!res.ok) throw new Error("not found");
+    render(await res.json());
+  }catch(e){
+    content.innerHTML = '<div class="state"><div>データがまだありません。</div>'
+      + '<div>Mac側の計算がまだ一度も実行されていない可能性があります。</div></div>';
+    status.textContent = "—";
+  }finally{ btn.disabled = false; }
+}
+
+function render(data){
+  const status = document.getElementById("status");
+  const isProv = data.status === "暫定";
+  status.innerHTML =
+    `<span class="badge ${isProv?'prov':'fixed'}"><span class="dot"></span>${data.status}</span>`
+    + `<span>最終更新 ${data.generated_at}</span>`
+    + `<span>${data.short}日/${data.long}日線 + MACD</span>`;
+
+  const cards = data.results.map(r=>{
+    if(r.flag === "取得失敗"){
+      return `<div class="card warn"><div class="row1">
+        <div><div class="name">${r.name}</div><div class="code">${r.code}</div></div>
+        <div class="flag">取得失敗</div></div></div>`;
+    }
+    const cls = CLASS[r.flag] || "neutral";
+    return `<div class="card ${cls}"><div class="row1">
+        <div><div class="name">${r.name}</div><div class="code">${r.code}</div></div>
+        <div class="flag"><span class="arrow">${ARROW[r.flag]||""}</span>${r.flag}</div></div>
+      <div class="data">
+        <span>終値 <b class="mono">${r.close.toLocaleString()}</b></span>
+        <span>${data.short}日 <b class="mono">${r.sma_short.toLocaleString()}</b></span>
+        <span>${data.long}日 <b class="mono">${r.sma_long.toLocaleString()}</b></span>
+        <span>${CROSS[r.cross]||""}</span>
+        <span>MACD <b>${r.macd_above ? "上向き":"下向き"}</b></span>
+      </div></div>`;
+  }).join("");
+
+  content.innerHTML = `<div class="list">${cards}</div>
+    <p class="note">「暫定」は立会時間中の確定前の値で、終値が決まるまで変わることがあります。
+    判定は過去の値動きパターンの要約であり、将来を予測するものではありません。
+    投資判断はご自身の責任で行ってください。</p>`;
+}
+load();
+</script>
+</body>
+</html>

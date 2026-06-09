@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  30分ごとに売買フラグを計算してGitHubに反映するlaunchd設定(テンプレート)
+  ============================================================
+  下の __PYTHON__ と __PROJECT_DIR__ を自分の環境に書き換えてから、
+  ~/Library/LaunchAgents/ に置いて読み込みます(手順は README.txt 参照)。
+
+  ・__PYTHON__      … python3 のフルパス(ターミナルで which python3)
+  ・__PROJECT_DIR__ … このプロジェクトを置いたフォルダのフルパス
+-->
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.user.stockflags</string>
+
+  <!-- 30分ごとに run.sh を実行(market時間外は中ですぐ終了する) -->
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/zsh</string>
+    <string>__PROJECT_DIR__/run.sh</string>
+  </array>
+
+  <key>StartInterval</key>
+  <integer>1800</integer>
+
+  <key>WorkingDirectory</key>
+  <string>__PROJECT_DIR__</string>
+
+  <!-- 実行ログ(うまく動かない時はここを確認) -->
+  <key>StandardOutPath</key>
+  <string>__PROJECT_DIR__/run.log</string>
+  <key>StandardErrorPath</key>
+  <string>__PROJECT_DIR__/run.log</string>
+</dict>
+</plist>
