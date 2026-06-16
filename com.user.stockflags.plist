@@ -17,19 +17,19 @@
   <key>ProgramArguments</key>
   <array>
     <string>/bin/zsh</string>
-    <string>/Users/user/Downloads/stock-flags/run.sh</string>
+    <string>/Users/user/stock-flags/run.sh</string>
   </array>
 
   <key>StartInterval</key>
   <integer>1800</integer>
 
   <key>WorkingDirectory</key>
-  <string>/Users/user/Downloads/stock-flags</string>
+  <string>/Users/user/stock-flags</string>
 
   <!-- 実行ログ(うまく動かない時はここを確認) -->
   <key>StandardOutPath</key>
-  <string>/Users/user/Downloads/stock-flags/run.log</string>
+  <string>/Users/user/stock-flags/run.log</string>
   <key>StandardErrorPath</key>
-  <string>/Users/user/Downloads/stock-flags/run.log</string>
+  <string>/Users/user/stock-flags/run.log</string>
 </dict>
 </plist>
