@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-07-07 16:14",
-  "status": "確定",
+  "generated_at": "2026-07-08 09:06",
+  "status": "暫定",
   "short": 25,
   "long": 75,
   "results": [
@@ -83,10 +83,10 @@
     },
     {
       "flag": "中立",
-      "date": "2026-07-07",
-      "close": 2443.0,
-      "sma_short": 2969.7,
-      "sma_long": 2748.3,
+      "date": "2026-07-06",
+      "close": 2592.5,
+      "sma_short": 3002.2,
+      "sma_long": 2747.1,
       "macd_above": false,
       "cross": "none",
       "code": "5802.T",
