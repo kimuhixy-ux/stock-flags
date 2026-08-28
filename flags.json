@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-08-27 16:03",
-  "status": "確定",
+  "generated_at": "2026-08-28 09:05",
+  "status": "暫定",
   "short": 25,
   "long": 75,
   "results": [
@@ -72,10 +72,10 @@
     },
     {
       "flag": "中立",
-      "date": "2026-08-27",
-      "close": 4883.0,
-      "sma_short": 5101.1,
-      "sma_long": 6167.4,
+      "date": "2026-08-28",
+      "close": NaN,
+      "sma_short": NaN,
+      "sma_long": NaN,
       "macd_above": true,
       "cross": "none",
       "code": "6506.T",
