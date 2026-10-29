@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-28 16:14",
-  "status": "確定",
+  "generated_at": "2026-10-29 09:14",
+  "status": "暫定",
   "short": 25,
   "long": 75,
   "results": [
@@ -28,10 +28,10 @@
     },
     {
       "flag": "中立",
-      "date": "2026-10-28",
-      "close": 3190.0,
-      "sma_short": 3172.8,
-      "sma_long": 3087.2,
+      "date": "2026-10-29",
+      "close": NaN,
+      "sma_short": NaN,
+      "sma_long": NaN,
       "macd_above": true,
       "cross": "none",
       "code": "2593.T",
